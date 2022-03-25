@@ -41,7 +41,7 @@ public class UserController {
         return "user/form";
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public String signUp(@Validated @ModelAttribute(name = "user") UserDto userDto,
                          BindingResult bindingResult) {
         if (userService.findOne(userDto.getUserId()) != null) {
