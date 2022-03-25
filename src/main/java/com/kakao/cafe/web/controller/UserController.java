@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -108,7 +109,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute(name = "user") LoginUserDto loginUserDto,
-                        BindingResult bindingResult, HttpSession httpSession) {
+                        BindingResult bindingResult, HttpSession httpSession, @RequestParam(defaultValue = "/") String redirectURL) {
 
         // field error 출력
         if (bindingResult.hasErrors()) {
@@ -125,7 +126,7 @@ public class UserController {
 
         httpSession.setAttribute(SessionConst.LOGIN_SESSION_NAME, loginUserId);
 
-        return "redirect:/";
+        return "redirect:" + redirectURL;
     }
 
 
